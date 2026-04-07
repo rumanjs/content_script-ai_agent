@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Content Script AI Agent</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="app.js"></script>
+</head>
+
+<body class="bg-gray-100 p-6 font-sans">
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-xl p-8">
+        <h1 class="text-3xl font-extrabold mb-8 text-center text-blue-900">Content Script AI Agent</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Form Section -->
+            <div class="bg-blue-50 p-6 rounded-lg border border-blue-100">
+                <h2 class="text-xl font-bold mb-4 text-blue-800">Content Inputs</h2>
+                <form id="contentForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-700" for="topic">Topic</label>
+                        <input type="text" id="topic" name="topic" required
+                            class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-700" for="audience">Target
+                            Audience</label>
+                        <input type="text" id="audience" name="audience" required
+                            class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-700" for="platform">Platform</label>
+                        <select id="platform" name="platform" required
+                            class="w-full border rounded px-3 py-2 bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                            <option value="Instagram Reel">Instagram Reel</option>
+                            <option value="YouTube">YouTube</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Telegram">Telegram</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-1 text-gray-700" for="duration">Video Duration
+                            (optional)</label>
+                        <input type="text" id="duration" name="duration" placeholder="e.g. 30 sec / 60 sec"
+                            class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold mb-1 text-gray-700"
+                                for="language">Language</label>
+                            <input type="text" id="language" name="language" value="English"
+                                class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-1 text-gray-700" for="tone">Tone</label>
+                            <input type="text" id="tone" name="tone" value="Educational"
+                                class="w-full border rounded px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                        </div>
+                    </div>
+                    <div class="pt-4 flex flex-col space-y-3">
+                        <button type="submit" id="btn-generate"
+                            class="w-full bg-blue-600 text-white py-2 rounded shadow hover:bg-blue-700 font-bold transition">Generate
+                            Script</button>
+                        <div class="flex space-x-3">
+                            <button type="button" id="btn-hook"
+                                class="w-1/2 bg-purple-600 text-white py-2 rounded shadow hover:bg-purple-700 font-bold transition">Get
+                                Hook Only</button>
+                            <button type="button" id="btn-calendar"
+                                class="w-1/2 bg-green-600 text-white py-2 rounded shadow hover:bg-green-700 font-bold transition">3-Day
+                                Calendar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Result Section -->
+            <div class="flex flex-col">
+                <h2 class="text-xl font-bold mb-4 text-gray-800">Result Output</h2>
+                <div id="result"
+                    class="flex-grow bg-gray-50 border p-4 rounded text-sm relative shadow-inner overflow-y-auto min-h-[400px] whitespace-pre-wrap font-serif text-gray-800 leading-relaxed">
+                </div>
+                <div id="action-buttons" class="mt-4 flex space-x-2 hidden">
+                    <button id="btn-save"
+                        class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 font-bold text-sm shadow transition w-full">Save
+                        Script to DB</button>
+                </div>
+                <div id="save-status" class="mt-2 text-sm text-green-600 font-semibold hidden">Saved successfully!</div>
+            </div>
+        </div>
+
+        <div class="mt-12 border-t pt-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Saved Scripts Library</h2>
+                <button id="btn-load-scripts"
+                    class="bg-gray-200 text-gray-800 py-1.5 px-4 rounded font-semibold hover:bg-gray-300 transition text-sm shadow-sm border border-gray-300">Refresh
+                    Library</button>
+            </div>
+            <div id="saved-scripts-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Scripts will be loaded here -->
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
